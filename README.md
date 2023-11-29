@@ -3,7 +3,7 @@
 **RTL CODE**
 
 
-module Radix4BoothMultiplier #(
+module Radix4BoothMultiplier (
     parameter width = 8,  // Width parameter for multiplicand and product
     parameter N = 4       // N parameter for multiplier
 ) (
