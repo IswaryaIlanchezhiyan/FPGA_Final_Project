@@ -1,4 +1,4 @@
-# FPGA_Final_Project
+# MULTI-BIT-WIDTH BOOTH VECTOR 
 
 **RTL CODE**
 
@@ -207,7 +207,7 @@ memory_initialization_vector=
 
 ```
 
-**COE FILE FOR MULTILIER**
+**COE FILE FOR MULTIPLIER**
 
 ```
 
