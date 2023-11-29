@@ -2,8 +2,10 @@
 
 **RTL CODE**
 
+```
 
-module Radix4BoothMultiplier (
+
+module Radix4BoothMultiplier #(
     parameter width = 8,  // Width parameter for multiplicand and product
     parameter N = 4       // N parameter for multiplier
 ) (
@@ -97,8 +99,11 @@ ila_0 multibit (
 
 endmodule
 
+```
 
 **TESTBENCH CODE**
+
+```
 
 module Radix4BoothMultiplier_TB;
 
@@ -166,8 +171,11 @@ module Radix4BoothMultiplier_TB;
 
 endmodule
 
+```
 
 **CONSTRAINTS**
+
+```
 
 set_property IOSTANDARD LVCMOS33 [get_ports clk]
 set_property PACKAGE_PIN W5 [get_ports clk]
@@ -176,8 +184,12 @@ set_property PACKAGE_PIN W5 [get_ports clk]
 create_clock -period 7.483 -name clk -waveform {0.000 6.000} -add
 create_clock -period 7.483 -name clk -waveform {0.000 6.000} [get_ports clk]
 
+```
+
 
 **COE FILE FOR MULTILICAND**
+
+```
 
 ; This .COE file specifies the contents for a block memory
 ; of depth=8, and width=16.  In this case, values are specified
@@ -193,7 +205,11 @@ memory_initialization_vector=
 18,
 2;
 
+```
+
 **COE FILE FOR MULTILIER**
+
+```
 
 ; This .COE file specifies the contents for a block memory
 ; of depth=8, and width=16.  In this case, values are specified
@@ -208,3 +224,5 @@ memory_initialization_vector=
 -25,
 3,
 25;
+
+```
