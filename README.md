@@ -320,6 +320,10 @@ create_clock -period 7.676 -name clk -waveform {0.000 6.000} [get_ports clk]
 
 ```
 
+
+# COE FILES
+
+
 **COE FILE FOR MULTILICAND**
 
 ```
