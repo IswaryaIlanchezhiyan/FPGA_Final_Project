@@ -185,7 +185,140 @@ create_clock -period 7.483 -name clk -waveform {0.000 6.000} -add
 create_clock -period 7.483 -name clk -waveform {0.000 6.000} [get_ports clk]
 
 ```
+# SIGNED MULTIPLICATION
 
+**RTL CODE**
+
+```
+
+module multiplication(
+    input clk
+    
+    );
+    
+    wire signed [7:0] A, B;
+    reg signed [15:0] C;
+    reg [3:0] address;
+    
+    initial begin
+        address =4'b0000;
+    end
+    
+    always @(posedge clk)
+    begin 
+    address <= address + 4'b0001;
+    end
+    
+blk_mem_gen_0 Multiplicand (
+  .clka(clk),    // input wire clka
+  .ena(1),      // input wire ena
+  .wea(0),      // input wire [0 : 0] wea
+  .addra(address),  // input wire [2 : 0] addra
+  .dina(dina),    // input wire [7 : 0] dina
+  .douta(A)  // output wire [7 : 0] douta
+);
+
+blk_mem_gen_1 Multiplier (
+  .clka(clk),    // input wire clka
+  .ena(1),      // input wire ena
+  .wea(0),      // input wire [0 : 0] wea
+  .addra(address),  // input wire [2 : 0] addra
+  .dina(dina),    // input wire [7 : 0] dina
+  .douta(B)  // output wire [7 : 0] douta
+);
+
+ila_0 multiplication (
+	.clk(clk), // input wire clk
+
+
+	.probe0(A), // input wire [7:0]  probe0  
+	.probe1(B), // input wire [7:0]  probe1 
+	.probe2(C), // input wire [15:0]  probe2 
+	.probe3(address) // input wire [3:0]  probe3
+);
+always @* begin
+
+    C = A * B;
+
+end    
+
+endmodule
+
+
+```
+
+
+**TESTBENCH CODE**
+
+```
+
+module multiplication_tb;
+
+
+ 
+  // Signals
+  reg clk ; // Clock signal
+  reg signed [7:0] A; // Input A
+  reg signed [7:0] B; // Input B
+  wire signed [15:0] C; // Output C
+
+  // Clock generation
+    initial begin
+        clk = 0;
+        // Toggle the clock every 5 time units
+        forever #5 clk = ~clk;
+    end
+
+  // Instantiate the module
+  multiplication uut (
+    .clk(clk),
+    .A(A),
+    .B(B),
+    .C(C)
+  );
+
+  // Testbench stimulus
+  initial begin
+    A = 8; 
+    B = 5;
+    
+    #100; 
+    
+    A = -17;
+    B = 7;
+    
+    #100;
+    
+    A = 14;
+    B = -9;
+    
+    #100;
+    
+    A = -5;
+    B = -25;
+    
+    #100;
+
+  
+    $finish;
+  end
+
+endmodule
+
+```
+
+**CONSTRAINTS**
+
+```
+
+set_property IOSTANDARD LVCMOS33 [get_ports clk]
+set_property PACKAGE_PIN W5 [get_ports clk]
+
+create_clock -period 7.676 -name clk -waveform {0.000 6.000} -add
+create_clock -period 7.676 -name clk -waveform {0.000 6.000} [get_ports clk]
+
+
+```
 
 **COE FILE FOR MULTILICAND**
 
